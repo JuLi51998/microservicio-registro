@@ -1,17 +1,13 @@
 FROM node
 
-RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
+WORKDIR /app
 
-WORKDIR /home/node/app
-
-COPY package*.json ./
-
-USER node
+COPY package*.json /app
 
 RUN npm install
 
-COPY --chown=node:node . .
+COPY . /app
 
-EXPOSE 4040
+CMD node index.js
 
-CMD [ "node", "app.js" ]
+EXPOSE 3000
