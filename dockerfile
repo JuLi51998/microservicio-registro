@@ -2,10 +2,10 @@ FROM node
 
 WORKDIR /microservicio
 
-COPY package*.json ./
+COPY package*.json ./app
 
 RUN npm install
 
-COPY . .
+COPY . /app
 
 CMD ["node", "start"]
