@@ -2,7 +2,7 @@ FROM node
 
 WORKDIR /microservicio
 
-COPY package*,json ./
+COPY package*.json ./
 
 RUN npm install
 
