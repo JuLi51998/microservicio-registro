@@ -1,6 +1,6 @@
 FROM node
 
-WORKDIR /microservicio
+WORKDIR /app
 
 COPY package*.json ./app
 
