@@ -8,6 +8,10 @@ class InedexController {
         const tareas = await pool.query('SELECT * FROM tarea');
         res.json(tareas);
     }
+    public async listEvents (req: Request, res: Response) {
+        const eventos = await pool.query('SELECT * FROM evento');
+        res.json(eventos);
+    }
     public async getOne (req: Request, res: Response): Promise<any> {
         const { id } = req.params;
         const tareas = await pool.query('SELECT * FROM tarea WHERE id = ?', [id]);
@@ -20,13 +24,21 @@ class InedexController {
     public async create(req: Request, res: Response): Promise<void> {
         await pool.query('INSERT INTO tarea set ?', [req.body]);
         res.json({msj: "Tarea creada"});
-
     }
-    public delete(req: Request, res: Response) {
-        res.json({msj: "Eliminando tarea " + req.params.id });
+    public async createEvent(req: Request, res: Response): Promise<void> {
+        await pool.query('INSERT INTO evento set ?', [req.body]);
+        res.json({msj: "Evento creado"});
     }
-    public update(req: Request, res: Response){
-        res.json({msj: "Actualizando tarea " + req.params.id });
+    public async delete(req: Request, res: Response) {
+        const { id } = req.params;
+        await pool.query('DELETE from tarea WHERE id = ?', [id])
+        res.json({message: 'Los datos del usuario han sido eliminados'});
+    }
+    public async update(req: Request, res: Response){
+        const { id } = req.params;
+        await pool.query('UPDATE tarea SET ? WHERE id = ?', [req.body, id])
+        res.json({message: 'Los datos del usuario han sido actualizados'});
+    
     }
 }
 

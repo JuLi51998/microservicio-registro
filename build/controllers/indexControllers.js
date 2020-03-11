@@ -20,6 +20,12 @@ class InedexController {
             res.json(tareas);
         });
     }
+    listEvents(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const eventos = yield database_1.default.query('SELECT * FROM evento');
+            res.json(eventos);
+        });
+    }
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
@@ -37,11 +43,25 @@ class InedexController {
             res.json({ msj: "Tarea creada" });
         });
     }
+    createEvent(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield database_1.default.query('INSERT INTO evento set ?', [req.body]);
+            res.json({ msj: "Evento creado" });
+        });
+    }
     delete(req, res) {
-        res.json({ msj: "Eliminando tarea " + req.params.id });
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            yield database_1.default.query('DELETE from tarea WHERE id = ?', [id]);
+            res.json({ message: 'Los datos del usuario han sido eliminados' });
+        });
     }
     update(req, res) {
-        res.json({ msj: "Actualizando tarea " + req.params.id });
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            yield database_1.default.query('UPDATE tarea SET ? WHERE id = ?', [req.body, id]);
+            res.json({ message: 'Los datos del usuario han sido actualizados' });
+        });
     }
 }
 exports.indexController = new InedexController();

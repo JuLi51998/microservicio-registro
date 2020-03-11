@@ -13,6 +13,8 @@ class IndexRoutes {
         this.router.post('/tareas', indexControllers_1.indexController.create);
         this.router.delete('/tareas/:id', indexControllers_1.indexController.delete);
         this.router.put('/tareas/:id', indexControllers_1.indexController.update);
+        this.router.post('/eventos', indexControllers_1.indexController.createEvent);
+        this.router.get('/eventos', indexControllers_1.indexController.listEvents);
     }
 }
 const indexRoutes = new IndexRoutes();
